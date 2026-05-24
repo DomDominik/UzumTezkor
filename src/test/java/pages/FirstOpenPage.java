@@ -34,7 +34,7 @@ public class FirstOpenPage {
             $(".carousel-item.active [data-test='location-onboarding-continue']");
     // Elements page 2.0  "Куда доставить"
     private final SelenideElement pageTitle =
-            $(".carousel-item.active [data-test='navbar-title']");
+            $("[data-test='navbar-title']");
     private final SelenideElement addressInput =
             $("[data-test='new-addres-search-input']");
     private final SelenideElement selectOnMapButton =
