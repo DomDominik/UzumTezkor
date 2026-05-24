@@ -3,6 +3,7 @@ package configs;
 import com.codeborne.selenide.Configuration;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class TestConfig {
@@ -21,6 +22,7 @@ public class TestConfig {
 
         printConfiguration();
     }
+
 
     private static String getBaseUrl() {
         return System.getProperty("base.url", "https://www.uzumtezkor.uz");
@@ -44,13 +46,17 @@ public class TestConfig {
 
     private static void setupRemoteCapabilities() {
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("selenoid:options", Map.<String, Object>of(
-                "enableVNC", true,
-                "enableVideo", Boolean.parseBoolean(System.getProperty("video.enabled", "false"))
-        ));
+
+        Map<String, Object> selenoidOptions = new HashMap<>();
+        selenoidOptions.put("enableVNC", true);
+        selenoidOptions.put("enableVideo", Boolean.parseBoolean(System.getProperty("video.enabled", "false")));
+
+        // запрет геолокации
+        selenoidOptions.put("prefs", Map.of("profile.default_content_setting_values.geolocation", 2));
+
+        capabilities.setCapability("selenoid:options", selenoidOptions);
         Configuration.browserCapabilities = capabilities;
     }
-
     private static void printConfiguration() {
         System.out.println("=== Test Configuration ===");
         System.out.println("Base URL: " + Configuration.baseUrl);

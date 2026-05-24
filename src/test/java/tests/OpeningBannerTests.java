@@ -21,7 +21,7 @@ public class OpeningBannerTests {
     void setUp() {
         TestConfig.applyConfiguration();
     }
-
+    @Tag("Smoke")
     @Test
     @DisplayName("Видимость приветственного баннера")
     public void VisibleOpeningBannerTest(){
@@ -77,6 +77,7 @@ public class OpeningBannerTests {
                     .typeSlideUnderTitle();
         });
     }
+    @Tag("Smoke")
     @Test
     @DisplayName("Видимость элементов страницы \"Куда доставить\"")
     public void ClickSecondOpeningBannerTest(){
