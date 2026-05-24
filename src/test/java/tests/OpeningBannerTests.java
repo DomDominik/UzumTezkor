@@ -1,0 +1,59 @@
+package tests;
+
+import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
+import org.junit.jupiter.api.*;
+
+public class OpeningBannerTests {
+
+    @BeforeAll
+    static void setUp() {
+        Configuration.browserSize = "1920x1080";
+        Configuration.baseUrl = "https://demoqa.com/";
+        Configuration.browser ="Chrome";
+        Configuration.browserVersion = "128";
+        Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
+    }
+
+    @Test
+    @DisplayName("Тест на простую форму -> заданные тестовые данные")
+    void successRequiredFormTests() {
+        texBoxPage
+                .openPege()
+                .typeUserName(firstName+" "+lastName)
+                .typUserEmail(userEmail)
+                .typCurrentAddress(currentAddress)
+                .typPermanentAddress(permanentAddress)
+                .submitForm()
+
+                .checkField("name", firstName+" "+lastName)
+                .checkField("email", userEmail)
+                .checkField("currentAddress", currentAddress)
+                .checkField("permanentAddress", permanentAddress);
+    }
+    @BeforeEach
+    public void setRandomDataUp() {
+        randomData = new RandomizTestData();
+    }
+    @Test
+    @DisplayName("Тест на простую форму -> рандомные тестовые данные")
+    void successRandomRequiredFormTests() {
+        texBoxPage
+                .openPege()
+                .typeUserName(randomData.firstRandomName+" "+randomData.lastRandomName)
+                .typUserEmail(randomData.userRandomEmail)
+                .typCurrentAddress(randomData.currentAddressRandom)
+                .typPermanentAddress(randomData.permanentAddressRandom)
+                .submitForm()
+
+                .checkField("name", randomData.firstRandomName+" "+randomData.lastRandomName)
+                .checkField("email", randomData.userRandomEmail)
+                .checkField("currentAddress", randomData.currentAddressRandom)
+                .checkField("permanentAddress", randomData.permanentAddressRandom);
+    }
+    @AfterAll
+    static void teaDown() {
+        Selenide.closeWebDriver();
+    }
+
+}
