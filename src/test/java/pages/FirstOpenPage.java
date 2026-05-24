@@ -2,8 +2,6 @@ package pages;
 
 import com.codeborne.selenide.SelenideElement;
 
-import java.time.Duration;
-
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
@@ -34,7 +32,7 @@ public class FirstOpenPage {
             $(".carousel-item.active [data-test='location-onboarding-continue']");
     // Elements page 2.0  "Куда доставить"
     private final SelenideElement pageTitle =
-            $("[data-test='navbar-title']");
+            $(".carousel-item.active [data-test='navbar-title']");
     private final SelenideElement addressInput =
             $("[data-test='new-addres-search-input']");
     private final SelenideElement selectOnMapButton =
@@ -128,13 +126,6 @@ public class FirstOpenPage {
     public FirstOpenPage typeAssertGeoPermissionModal() {
         geoPermissionModal.shouldBe(visible);
         geoModalTitle.shouldHave(text("Разрешите доступ к вашей геопозиции"));
-        return this;
-    }
-    public FirstOpenPage closeGeoPermissionModalIfPresent() {
-        if (geoPermissionModal.isDisplayed()) {
-            geoModalOkButton.shouldBe(visible).click();
-            geoPermissionModal.shouldNotBe(visible, Duration.ofSeconds(5));
-        }
         return this;
     }
 }

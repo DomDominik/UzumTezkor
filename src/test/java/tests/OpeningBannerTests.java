@@ -89,8 +89,7 @@ public class OpeningBannerTests {
         step("Переходим на страницу \"Куда доставить\"", () -> {
             firstOpenPage
                     .typeMainOnboardingButtonClick()
-                    .typeActiveSlideButtonClick()
-                    .closeGeoPermissionModalIfPresent();
+                    .typeActiveSlideButtonClick();
         });
         step("Проверяем видимость элементов", () -> {
             firstOpenPage
@@ -105,8 +104,7 @@ public class OpeningBannerTests {
                     .openPege()
                     .typeMainOnboardingButtonClick()
                     .typeActiveSlideButtonClick()
-                    .typeAssertPageOpened()
-                    .closeGeoPermissionModalIfPresent();
+                    .typeAssertPageOpened();
         });
         step("Вводим адрес", () -> {
             firstOpenPage
@@ -125,8 +123,7 @@ public class OpeningBannerTests {
                     .openPege()
                     .typeMainOnboardingButtonClick()
                     .typeActiveSlideButtonClick()
-                    .typeAssertPageOpened()
-                    .closeGeoPermissionModalIfPresent();
+                    .typeAssertPageOpened();
         });
         step("Выбираем \"Показать на карте\"", () -> {
             firstOpenPage

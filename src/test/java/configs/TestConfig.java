@@ -48,23 +48,9 @@ public class TestConfig {
     private static void setupRemoteCapabilities() {
         DesiredCapabilities capabilities = new DesiredCapabilities();
 
-        // Подменяем IP на узбекский
-        Map<String, Object> chromeOptions = new HashMap<>();
-        chromeOptions.put("args", List.of(
-                "--disable-dev-shm-usage",
-                "--disable-blink-features=AutomationControlled"
-        ));
-        chromeOptions.put("prefs", Map.of(
-                "profile.default_content_setting_values.geolocation", 1
-        ));
-
-        capabilities.setCapability("goog:chromeOptions", chromeOptions);
-
-        // Selenoid options
         capabilities.setCapability("selenoid:options", Map.of(
                 "enableVNC", true,
-                "enableVideo", false,
-                "env", List.of("TZ=Asia/Tashkent")  // ← часовой пояс Узбекистана
+                "enableVideo", false
         ));
 
         Configuration.browserCapabilities = capabilities;
