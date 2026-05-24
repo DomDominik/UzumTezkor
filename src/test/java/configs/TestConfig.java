@@ -4,6 +4,7 @@ import com.codeborne.selenide.Configuration;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class TestConfig {
@@ -47,24 +48,24 @@ public class TestConfig {
     private static void setupRemoteCapabilities() {
         DesiredCapabilities capabilities = new DesiredCapabilities();
 
-        // Настройки геолокации для Selenoid
-        Map<String, Object> geolocation = new HashMap<>();
-        geolocation.put("latitude", 41.311081);
-        geolocation.put("longitude", 69.240562);
-        geolocation.put("accuracy", 100);
+        // Подменяем IP на узбекский
+        Map<String, Object> chromeOptions = new HashMap<>();
+        chromeOptions.put("args", List.of(
+                "--disable-dev-shm-usage",
+                "--disable-blink-features=AutomationControlled"
+        ));
+        chromeOptions.put("prefs", Map.of(
+                "profile.default_content_setting_values.geolocation", 1
+        ));
 
-        // Настройки Selenoid
-        Map<String, Object> selenoidOptions = new HashMap<>();
-        selenoidOptions.put("enableVNC", true);
-        selenoidOptions.put("enableVideo", Boolean.parseBoolean(System.getProperty("video.enabled", "false")));
-        selenoidOptions.put("geolocation", geolocation);  // ← геолокация внутрь selenoid:options
+        capabilities.setCapability("goog:chromeOptions", chromeOptions);
 
-        capabilities.setCapability("selenoid:options", selenoidOptions);
-
-        // Настройки браузера (разрешаем геолокацию)
-        Map<String, Object> prefs = new HashMap<>();
-        prefs.put("profile.default_content_setting_values.geolocation", 1);
-        capabilities.setCapability("prefs", prefs);
+        // Selenoid options
+        capabilities.setCapability("selenoid:options", Map.of(
+                "enableVNC", true,
+                "enableVideo", false,
+                "env", List.of("TZ=Asia/Tashkent")  // ← часовой пояс Узбекистана
+        ));
 
         Configuration.browserCapabilities = capabilities;
     }
