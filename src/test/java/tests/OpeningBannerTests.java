@@ -1,59 +1,147 @@
 package tests;
 
-import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.logevents.SelenideLogger;
+import configs.TestConfig;
+import helpers.Attachments;
+import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.*;
+import pages.FirstOpenPage;
+
+import static io.qameta.allure.Allure.step;
 
 public class OpeningBannerTests {
-
-    @BeforeAll
-    static void setUp() {
-        Configuration.browserSize = "1920x1080";
-        Configuration.baseUrl = "https://demoqa.com/";
-        Configuration.browser ="Chrome";
-        Configuration.browserVersion = "128";
-        Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
-    }
-
-    @Test
-    @DisplayName("Тест на простую форму -> заданные тестовые данные")
-    void successRequiredFormTests() {
-        texBoxPage
-                .openPege()
-                .typeUserName(firstName+" "+lastName)
-                .typUserEmail(userEmail)
-                .typCurrentAddress(currentAddress)
-                .typPermanentAddress(permanentAddress)
-                .submitForm()
-
-                .checkField("name", firstName+" "+lastName)
-                .checkField("email", userEmail)
-                .checkField("currentAddress", currentAddress)
-                .checkField("permanentAddress", permanentAddress);
-    }
+    FirstOpenPage firstOpenPage = new FirstOpenPage();
     @BeforeEach
-    public void setRandomDataUp() {
-        randomData = new RandomizTestData();
+    void setupAllure() {
+        SelenideLogger.addListener("allure", new AllureSelenide());
+    }
+
+    @BeforeEach
+    void setUp() {
+        TestConfig.applyConfiguration();
+    }
+
+    @Test
+    @DisplayName("Видимость приветственного баннера")
+    public void VisibleOpeningBannerTest(){
+        step("Открываем главную страницу", () -> {
+            firstOpenPage
+                    .openPege();
+        });
+        step("Проверяем видимость элементов главной странницы", () -> {
+            firstOpenPage
+                    .typeOnboardingContainer()
+                    .typeImageContainer()
+                    .typeOnboardingTitle()
+                    .typeUnderOnboardingTitle()
+                    .typeMainOnboardingButton()
+                    .typeMainOnboardingButtonTitle()
+                    .typeCloseButtonVisible();
+        });
     }
     @Test
-    @DisplayName("Тест на простую форму -> рандомные тестовые данные")
-    void successRandomRequiredFormTests() {
-        texBoxPage
-                .openPege()
-                .typeUserName(randomData.firstRandomName+" "+randomData.lastRandomName)
-                .typUserEmail(randomData.userRandomEmail)
-                .typCurrentAddress(randomData.currentAddressRandom)
-                .typPermanentAddress(randomData.permanentAddressRandom)
-                .submitForm()
-
-                .checkField("name", randomData.firstRandomName+" "+randomData.lastRandomName)
-                .checkField("email", randomData.userRandomEmail)
-                .checkField("currentAddress", randomData.currentAddressRandom)
-                .checkField("permanentAddress", randomData.permanentAddressRandom);
+    @DisplayName("Закрытие приветственного баннера")
+    public void CloseOpeningBannerTest(){
+        step("Открываем главную страницу", () -> {
+            firstOpenPage
+                    .openPege()
+                    .typeOnboardingContainer();
+        });
+        step("Закрываем баннер", () -> {
+            firstOpenPage
+                    .typeCloseButtonVisible()
+                    .typeCloseButtonClick();
+        });
+        step("Проверяем что баннер закрыт", () -> {
+            firstOpenPage
+                    .typeOnboardingContainerNotVisible();
+        });
     }
-    @AfterAll
-    static void teaDown() {
+    @Test
+    @DisplayName("Видимость и подписи второго баннера")
+    public void ClickNexOpeningBannerTest(){
+        step("Открываем главную страницу", () -> {
+            firstOpenPage
+                    .openPege()
+                    .typeOnboardingContainer();
+        });
+        step("Переходим на второй баннер", () -> {
+            firstOpenPage
+                    .typeMainOnboardingButtonClick();
+        });
+        step("Проверяем видимость и подписи второго баннера", () -> {
+            firstOpenPage
+                    .typeSecondSlideActive()
+                    .typeSecondSlideTitle()
+                    .typeSlideUnderTitle();
+        });
+    }
+    @Test
+    @DisplayName("Видимость элементов страницы \"Куда доставить\"")
+    public void ClickSecondOpeningBannerTest(){
+        step("Открываем главную страницу", () -> {
+            firstOpenPage
+                    .openPege()
+                    .typeOnboardingContainer();
+        });
+        step("Переходим на страницу \"Куда доставить\"", () -> {
+            firstOpenPage
+                    .typeMainOnboardingButtonClick()
+                    .typeActiveSlideButtonClick();
+        });
+        step("Проверяем видимость элементов", () -> {
+            firstOpenPage
+                    .typeAssertPageOpened();
+        });
+    }
+    @Test
+    @DisplayName("Проверка input поиска")
+    public void ClickAddressInputTest(){
+        step("Открываем страницу ввода адреса", () -> {
+            firstOpenPage
+                    .openPege()
+                    .typeMainOnboardingButtonClick()
+                    .typeActiveSlideButtonClick()
+                    .typeAssertPageOpened();
+        });
+        step("Вводим адрес", () -> {
+            firstOpenPage
+                    .typeEnterAddress("улица Новый Узбекистан 1");
+        });
+        step("Проверяем список выдачи", () -> {
+            firstOpenPage
+                    .typeSearchResultsDisplayed();
+        });
+    }
+    @Test
+    @DisplayName("Проверка появления модального окна геопозиции")
+    public void clickSelectOnMapTest(){
+        step("Открываем страницу ввода адреса", () -> {
+            firstOpenPage
+                    .openPege()
+                    .typeMainOnboardingButtonClick()
+                    .typeActiveSlideButtonClick()
+                    .typeAssertPageOpened();
+        });
+        step("Выбираем \"Показать на карте\"", () -> {
+            firstOpenPage
+                    .typeClickSelectOnMap();
+        });
+        step("Проверяем модальное окно", () -> {
+            firstOpenPage
+                    .typeAssertGeoPermissionModal();
+        });
+    }
+    @AfterEach
+    void reportsFactureAndTearDown() {
+        Attachments.screenshotAs("Скриншот");
+        Attachments.addVideo();
+        Attachments.browserConsoleLogs();
+        Attachments.getVideoUrl();
+        Attachments.pageSource();
+
         Selenide.closeWebDriver();
+        SelenideLogger.removeListener("allure");
     }
-
 }
