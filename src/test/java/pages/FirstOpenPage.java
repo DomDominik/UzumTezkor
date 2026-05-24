@@ -2,6 +2,8 @@ package pages;
 
 import com.codeborne.selenide.SelenideElement;
 
+import java.time.Duration;
+
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
@@ -43,6 +45,7 @@ public class FirstOpenPage {
             $(".modal.show");
     private final SelenideElement geoModalTitle =
             $(".modal-title.h4");
+    private final SelenideElement geoModalOkButton = $(".modal.show [data-test='primary-action']");
     //Actions
     public FirstOpenPage openPege() {
         open("/ru");
@@ -125,6 +128,13 @@ public class FirstOpenPage {
     public FirstOpenPage typeAssertGeoPermissionModal() {
         geoPermissionModal.shouldBe(visible);
         geoModalTitle.shouldHave(text("Разрешите доступ к вашей геопозиции"));
+        return this;
+    }
+    public FirstOpenPage closeGeoPermissionModalIfPresent() {
+        if (geoPermissionModal.isDisplayed()) {
+            geoModalOkButton.shouldBe(visible).click();
+            geoPermissionModal.shouldNotBe(visible, Duration.ofSeconds(5));
+        }
         return this;
     }
 }
