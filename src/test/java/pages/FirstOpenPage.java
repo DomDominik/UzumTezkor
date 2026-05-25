@@ -12,49 +12,48 @@ import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
 
 public class FirstOpenPage {
     //Elements page 1.0
-    private final SelenideElement onboardingContainer =
-            $(".onboarding-off-canvas_onboardingSlide__qa2w_");
-    private final SelenideElement imageContainer =
-            $(".onboarding-off-canvas_imageContainer__MkQlk");
-    private final SelenideElement onboardingTitle =
-            $(".onboarding-off-canvas_onboardingSlideTitle__VJs6V");
-    private final SelenideElement underOnboardingTitle =
-            $(".onboarding-off-canvas_onboardingSlideDescription__KK4Vu");
-    private final SelenideElement mainOnboardingButton =
-            $("[data-test='location-onboarding-continue']");
-    private final SelenideElement closeButton =
+    private final SelenideElement
+            onboardingContainer =
+            $(".onboarding-off-canvas_onboardingSlide__qa2w_"),
+            imageContainer =
+            $(".onboarding-off-canvas_imageContainer__MkQlk"),
+            onboardingTitle =
+            $(".onboarding-off-canvas_onboardingSlideTitle__VJs6V"),
+            underOnboardingTitle =
+            $(".onboarding-off-canvas_onboardingSlideDescription__KK4Vu"),
+            mainOnboardingButton =
+            $("[data-test='location-onboarding-continue']"),
+            closeButton =
             $(".icon_icon__oYFlO.icon_black__NzANf.onboarding-off-canvas_closeIcon__NBu8X");
+
     // Elements page 1.1
     private final SelenideElement activeSlide =
-            $(".carousel-item.active .onboarding-off-canvas_onboardingSlide__qa2w_");
-    private final SelenideElement activeSlideTitle =
-            $(".carousel-item.active .onboarding-off-canvas_onboardingSlideTitle__VJs6V");
-    private final SelenideElement activeSlideUnderTitle =
-            $(".carousel-item.active .onboarding-off-canvas_onboardingSlideDescription__KK4Vu");
-    private final SelenideElement activeSlideButton =
+            $(".carousel-item.active .onboarding-off-canvas_onboardingSlide__qa2w_"),
+            activeSlideTitle =
+            $(".carousel-item.active .onboarding-off-canvas_onboardingSlideTitle__VJs6V"),
+            activeSlideUnderTitle =
+            $(".carousel-item.active .onboarding-off-canvas_onboardingSlideDescription__KK4Vu"),
+            activeSlideButton =
             $(".carousel-item.active [data-test='location-onboarding-continue']");
-    // Elements page 2.0  "Куда доставить"
+
+    // Elements page 1.4  "Куда доставить"
     private final SelenideElement pageTitle =
-            $(".carousel-item.active [data-test='navbar-title']");
-    private final SelenideElement addressInput =
-            $("[data-test='new-addres-search-input']");
-    private final SelenideElement selectOnMapButton =
-            $("[data-test='new-addres-search-select-on-map']");
-    private final SelenideElement selectOnSearchButton =
-            $("[data-test='new-addres-map-search']");
-    private final SelenideElement searchResultsContainer =
+            $(".carousel-item.active [data-test='navbar-title']"),
+            addressInput =
+            $("[data-test='new-addres-search-input']"),
+            selectOnSearchButton =
+            $("[data-test='new-addres-map-search']"),
+            searchResultsContainer =
             $(".search-list_container__rmNFo");
-    private final SelenideElement geoPermissionModal =
-            $(".modal.show");
-    private final SelenideElement geoModalTitle =
-            $(".modal-title.h4");
+
     // Elements page 1.3  "Вне зоны доставки"
     private final SelenideElement addressInputBlock =
-            $("[data-test='new-address-map-text']");
-    private final SelenideElement confirmAddressButton =
-            $("[data-test='new-addres-map-button']");
-    private final SelenideElement objectTitle =
+            $("[data-test='new-address-map-text']"),
+            confirmAddressButton =
+            $("[data-test='new-addres-map-button']"),
+            objectTitle =
             $(".address-map_title__usr4K");
+
     //Actions
     public FirstOpenPage openPege() {
         open("/ru");
