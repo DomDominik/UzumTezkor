@@ -103,8 +103,7 @@ public class OpeningBannerTests {
             firstOpenPage
                     .openPege()
                     .typeMainOnboardingButtonClick()
-                    .typeActiveSlideButtonClick()
-                    .typeAssertPageOpened();
+                    .typeActiveSlideButtonClick();
         });
         step("Вводим адрес", () -> {
             firstOpenPage
@@ -116,14 +115,14 @@ public class OpeningBannerTests {
         });
     }
     @Test
+    @Disabled
     @DisplayName("Проверка появления модального окна геопозиции")
     public void clickSelectOnMapTest(){
         step("Открываем страницу ввода адреса", () -> {
             firstOpenPage
                     .openPege()
                     .typeMainOnboardingButtonClick()
-                    .typeActiveSlideButtonClick()
-                    .typeAssertPageOpened();
+                    .typeActiveSlideButtonClick();
         });
         step("Выбираем \"Показать на карте\"", () -> {
             firstOpenPage

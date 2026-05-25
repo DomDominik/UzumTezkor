@@ -47,10 +47,10 @@ test {
 
     // Проброс системных свойств
     systemProperties = [
-            "base.url": System.getProperty("base.url", ""),
+            "base.url": System.getProperty("base.url", "https://www.uzumtezkor.uz"),
             "remote.url": System.getProperty("remote.url", ""),
             "browser": System.getProperty("browser", "chrome"),
-            "browser.version": System.getProperty("browser.version", "latest"),
+            "browser.version": System.getProperty("browser.version", "128"),
             "resolution": System.getProperty("resolution", "1920x1080"),
             "video.enabled": System.getProperty("video.enabled", "false"),
             "selenide.remote": System.getProperty("selenide.remote"),
