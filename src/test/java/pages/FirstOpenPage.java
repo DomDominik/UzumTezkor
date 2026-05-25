@@ -48,7 +48,13 @@ public class FirstOpenPage {
             $(".modal.show");
     private final SelenideElement geoModalTitle =
             $(".modal-title.h4");
-    private final SelenideElement geoModalOkButton = $(".modal.show [data-test='primary-action']");
+    // Elements page 1.3  "Вне зоны доставки"
+    private final SelenideElement addressInputBlock =
+            $("[data-test='new-address-map-text']");
+    private final SelenideElement confirmAddressButton =
+            $("[data-test='new-addres-map-button']");
+    private final SelenideElement objectTitle =
+            $(".address-map_title__usr4K");
     //Actions
     public FirstOpenPage openPege() {
         open("/ru");
@@ -124,19 +130,31 @@ public class FirstOpenPage {
         searchResultsContainer.$$(".list_item__Lq2OI").shouldHave(sizeGreaterThan(0));
         return this;
     }
-    public FirstOpenPage typeClickSelectOnMap() {
-        selectOnMapButton.click();
-        return this;
-    }
     public FirstOpenPage typeSelectOnSearchButton() {
         selectOnSearchButton.shouldBe(Condition.enabled, Duration.ofSeconds(10));
         selectOnSearchButton.shouldBe(Condition.visible);
         selectOnSearchButton.click();
         return this;
     }
-    public FirstOpenPage typeAssertGeoPermissionModal() {
-        geoPermissionModal.shouldBe(visible);
-        geoModalTitle.shouldHave(text("Разрешите доступ к вашей геопозиции"));
+    public FirstOpenPage typeAddressInputBlockVisible() {
+        addressInputBlock.shouldBe(Condition.visible);
+        addressInputBlock.shouldHave(text("Вне зоны доставки"));
+        return this;
+    }
+    public FirstOpenPage typeConfirmButtonVisible() {
+        confirmAddressButton.shouldBe(Condition.visible);
+        return this;
+    }
+    public FirstOpenPage typePageTitleVisible() {
+        objectTitle.shouldBe(Condition.visible);
+        return this;
+    }
+    public FirstOpenPage typeConfirmButtonDisabled() {
+        confirmAddressButton.shouldHave(Condition.attribute("disabled"));
+        return this;
+    }
+    public FirstOpenPage typePageTitleText() {
+        objectTitle.shouldHave(Condition.text("Куда доставить?"));
         return this;
     }
 }

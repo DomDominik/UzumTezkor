@@ -117,24 +117,24 @@ public class OpeningBannerTests {
         });
     }
     @Test
-    @Disabled
-    @DisplayName("Проверка появления модального окна геопозиции")
+    @DisplayName("Проверка видимости элементов контейнера \"Куда доставить?\"")
     public void clickSelectOnMapTest(){
-        step("Открываем страницу ввода адреса", () -> {
+        step("Открываем страницу подтверждения адреса", () -> {
             firstOpenPage
                     .openPege()
                     .typeMainOnboardingButtonClick()
-                    .typeActiveSlideButtonClick()
-                    .typeSelectOnSearchButton();
-
+                    .typeActiveSlideButtonClick();
         });
-        step("Выбираем \"Показать на карте\"", () -> {
+        step("Проверяем подписи контейнера", () -> {
             firstOpenPage
-                    .typeClickSelectOnMap();
+                    .typeAddressInputBlockVisible()
+                    .typePageTitleVisible()
+                    .typeConfirmButtonVisible()
+                    .typePageTitleText();
         });
-        step("Проверяем модальное окно", () -> {
+        step("Проверяем состояние кнопки \"Подтвердить адрес\"", () -> {
             firstOpenPage
-                    .typeAssertGeoPermissionModal();
+                    .typeConfirmButtonDisabled();
         });
     }
     @AfterEach
