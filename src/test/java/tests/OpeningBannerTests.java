@@ -77,7 +77,6 @@ public class OpeningBannerTests {
                     .typeSlideUnderTitle();
         });
     }
-    @Tag("Smoke")
     @Test
     @DisplayName("Видимость элементов страницы \"Куда доставить\"")
     public void ClickSecondOpeningBannerTest(){
@@ -116,6 +115,7 @@ public class OpeningBannerTests {
                     .typeSearchResultsDisplayed();
         });
     }
+    @Tag("Smoke")
     @Test
     @DisplayName("Проверка видимости элементов контейнера \"Куда доставить?\"")
     public void clickSelectOnMapTest(){
