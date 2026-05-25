@@ -1,6 +1,9 @@
 package pages;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+
+import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
@@ -38,7 +41,7 @@ public class FirstOpenPage {
     private final SelenideElement selectOnMapButton =
             $("[data-test='new-addres-search-select-on-map']");
     private final SelenideElement selectOnSearchButton =
-            $("[data-test='new-addres-map-back']");
+            $("[data-test='new-addres-map-search']");
     private final SelenideElement searchResultsContainer =
             $(".search-list_container__rmNFo");
     private final SelenideElement geoPermissionModal =
@@ -126,6 +129,8 @@ public class FirstOpenPage {
         return this;
     }
     public FirstOpenPage typeSelectOnSearchButton() {
+        selectOnSearchButton.shouldBe(Condition.enabled, Duration.ofSeconds(10));
+        selectOnSearchButton.shouldBe(Condition.visible);
         selectOnSearchButton.click();
         return this;
     }
