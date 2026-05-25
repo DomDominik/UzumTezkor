@@ -139,12 +139,22 @@ public class OpeningBannerTests {
     }
     @AfterEach
     void reportsFactureAndTearDown() {
+        // 1. Сначала делаем скриншот и page source (пока драйвер жив)
         Attachments.screenshotAs("Скриншот");
-        Attachments.addVideo();
-        Attachments.browserConsoleLogs();
-        Attachments.getVideoUrl();
         Attachments.pageSource();
+        Attachments.browserConsoleLogs();
 
+        // 2. Даем время Selenoid закончить запись видео (ВАЖНО!)
+        try {
+            Thread.sleep(3000); // 3 секунды на сохранение видео
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // 3. Только после задержки скачиваем видео
+        Attachments.addVideo();
+
+        // 4. Закрываем драйвер
         Selenide.closeWebDriver();
         SelenideLogger.removeListener("allure");
     }
