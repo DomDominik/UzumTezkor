@@ -98,7 +98,7 @@ public class OpeningBannerTests {
         });
     }
     @Test
-    @DisplayName("Проверка input поиска")
+    @DisplayName("Проверка поиска")
     public void ClickAddressInputTest(){
         step("Открываем страницу ввода адреса", () -> {
             firstOpenPage
