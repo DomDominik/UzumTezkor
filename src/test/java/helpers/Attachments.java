@@ -19,7 +19,7 @@ public class Attachments {
         return ((TakesScreenshot) getWebDriver()).getScreenshotAs(OutputType.BYTES);
     }
 
-    @Attachment(value = "Page source", type = "text/plain") // or text/html
+    @Attachment(value = "Page source", type = "text/html", fileExtension = ".html")
     public static byte[] pageSource() {
         return getWebDriver().getPageSource().getBytes(StandardCharsets.UTF_8);
     }
