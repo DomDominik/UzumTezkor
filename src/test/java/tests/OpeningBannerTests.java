@@ -59,7 +59,7 @@ public class OpeningBannerTests {
         });
     }
     @Test
-    @DisplayName("Видимость и подписи второго баннера")
+    @DisplayName("Видимость и подписи второго приветственного баннера")
     public void ClickNexOpeningBannerTest(){
         step("Открываем главную страницу", () -> {
             firstOpenPage
