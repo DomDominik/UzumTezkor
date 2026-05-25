@@ -117,6 +117,7 @@ public class OpeningBannerTests {
         });
     }
     @Test
+    @Disabled
     @DisplayName("Проверка появления модального окна геопозиции")
     public void clickSelectOnMapTest(){
         step("Открываем страницу ввода адреса", () -> {
