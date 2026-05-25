@@ -45,17 +45,12 @@ public class TestConfig {
 
     private static void setupRemoteCapabilities() {
         DesiredCapabilities capabilities = new DesiredCapabilities();
-
-        boolean videoEnabled = Boolean.parseBoolean(System.getProperty("video.enabled", "false"));
-
-        capabilities.setCapability("selenoid:options", Map.of(
+        capabilities.setCapability("selenoid:options", Map.<String, Object>of(
                 "enableVNC", true,
-                "enableVideo", videoEnabled,
-                "videoFrameRate", 24,
-                "videoScreenSize", getResolution()
+                "enableVideo", true
         ));
-
         Configuration.browserCapabilities = capabilities;
+        Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
     }
     private static void printConfiguration() {
         System.out.println("=== Test Configuration ===");

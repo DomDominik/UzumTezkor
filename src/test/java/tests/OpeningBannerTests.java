@@ -13,13 +13,12 @@ import static io.qameta.allure.Allure.step;
 public class OpeningBannerTests {
     FirstOpenPage firstOpenPage = new FirstOpenPage();
     @BeforeEach
-    void setupAllure() {
-        SelenideLogger.addListener("allure", new AllureSelenide());
-    }
-
-    @BeforeEach
     void setUp() {
         TestConfig.applyConfiguration();
+    }
+    @BeforeEach
+    void setupAllure() {
+        SelenideLogger.addListener("allure", new AllureSelenide());
     }
     @Tag("Smoke")
     @Test
