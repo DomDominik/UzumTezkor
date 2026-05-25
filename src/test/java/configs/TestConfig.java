@@ -3,8 +3,6 @@ package configs;
 import com.codeborne.selenide.Configuration;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class TestConfig {
@@ -48,9 +46,13 @@ public class TestConfig {
     private static void setupRemoteCapabilities() {
         DesiredCapabilities capabilities = new DesiredCapabilities();
 
+        boolean videoEnabled = Boolean.parseBoolean(System.getProperty("video.enabled", "false"));
+
         capabilities.setCapability("selenoid:options", Map.of(
                 "enableVNC", true,
-                "enableVideo", false
+                "enableVideo", videoEnabled,
+                "videoFrameRate", 24,
+                "videoScreenSize", getResolution()
         ));
 
         Configuration.browserCapabilities = capabilities;
