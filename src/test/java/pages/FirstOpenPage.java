@@ -37,6 +37,8 @@ public class FirstOpenPage {
             $("[data-test='new-addres-search-input']");
     private final SelenideElement selectOnMapButton =
             $("[data-test='new-addres-search-select-on-map']");
+    private final SelenideElement selectOnSearchButton =
+            $("[data-test='new-addres-map-back']");
     private final SelenideElement searchResultsContainer =
             $(".search-list_container__rmNFo");
     private final SelenideElement geoPermissionModal =
@@ -121,6 +123,10 @@ public class FirstOpenPage {
     }
     public FirstOpenPage typeClickSelectOnMap() {
         selectOnMapButton.click();
+        return this;
+    }
+    public FirstOpenPage typeSelectOnSearchButton() {
+        selectOnSearchButton.click();
         return this;
     }
     public FirstOpenPage typeAssertGeoPermissionModal() {
