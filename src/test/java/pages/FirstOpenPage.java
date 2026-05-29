@@ -137,7 +137,7 @@ public class FirstOpenPage {
     }
     public FirstOpenPage typeAddressInputBlockVisible() {
         addressInputBlock.shouldBe(Condition.visible);
-        addressInputBlock.shouldHave(text("Вне зоны доставки?"));
+        addressInputBlock.shouldHave(text("Вне зоны доставки"));
         return this;
     }
     public FirstOpenPage typeConfirmButtonVisible() {
