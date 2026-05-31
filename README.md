@@ -111,6 +111,7 @@
   <video src="https://github.com/user-attachments/assets/af18a3ad-ffee-41bf-a2cc-743ef529b980" width="800" controls muted>
   </video>
 </p>
+
 ---
 
 ## 🚀 Запуск проекта
