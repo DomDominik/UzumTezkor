@@ -8,39 +8,16 @@ import java.util.Map;
 public class TestConfig {
 
     public static void applyConfiguration() {
-        Configuration.browserSize = getResolution();
-        Configuration.baseUrl = getBaseUrl();
-        Configuration.browser = getBrowser();
-        Configuration.browserVersion = getBrowserVersion();
+        Configuration.browserSize = System.getProperty("resolution", "1920x1080");
+        Configuration.baseUrl = System.getProperty("base.url", "https://www.uzumtezkor.uz");
+        Configuration.browser = System.getProperty("browser", "chrome");
+        Configuration.browserVersion = System.getProperty("browser.version", "128");
 
-        String remoteUrl = getRemoteUrl();
+        String remoteUrl = System.getProperty("remote.url");
         if (remoteUrl != null && !remoteUrl.isEmpty()) {
             Configuration.remote = remoteUrl;
             setupRemoteCapabilities();
         }
-
-        printConfiguration();
-    }
-
-
-    private static String getBaseUrl() {
-        return System.getProperty("base.url", "https://www.uzumtezkor.uz");
-    }
-
-    private static String getRemoteUrl() {
-        return System.getProperty("remote.url");
-    }
-
-    private static String getBrowser() {
-        return System.getProperty("browser", "chrome");
-    }
-
-    private static String getBrowserVersion() {
-        return System.getProperty("browser.version", "latest");
-    }
-
-    private static String getResolution() {
-        return System.getProperty("resolution", "1920x1080");
     }
 
     private static void setupRemoteCapabilities() {
@@ -51,14 +28,5 @@ public class TestConfig {
         ));
         Configuration.browserCapabilities = capabilities;
         Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
-    }
-    private static void printConfiguration() {
-        System.out.println("=== Test Configuration ===");
-        System.out.println("Base URL: " + Configuration.baseUrl);
-        System.out.println("Browser: " + Configuration.browser);
-        System.out.println("Browser Version: " + Configuration.browserVersion);
-        System.out.println("Resolution: " + Configuration.browserSize);
-        System.out.println("Remote: " + (Configuration.remote != null ? Configuration.remote : "local"));
-        System.out.println("==========================");
     }
 }

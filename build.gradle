@@ -50,7 +50,7 @@ test {
             "base.url": System.getProperty("base.url", "https://www.uzumtezkor.uz"),
             "remote.url": System.getProperty("remote.url", ""),
             "browser": System.getProperty("browser", "chrome"),
-            "browser.version": System.getProperty("browser.version", "128"),
+            "browser.version": System.getProperty("browser.version", ""),
             "resolution": System.getProperty("resolution", "1920x1080"),
             "video.enabled": System.getProperty("video.enabled", "false"),
             "selenide.remote": System.getProperty("selenide.remote"),

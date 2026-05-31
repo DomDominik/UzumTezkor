@@ -1,28 +1,16 @@
 package tests;
 
-import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.logevents.SelenideLogger;
-import configs.TestConfig;
-import helpers.Attachments;
-import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.*;
 import pages.FirstOpenPage;
+import testBase.TestBase;
 
 import static io.qameta.allure.Allure.step;
 
-public class OpeningBannerTests {
+public class OpeningBannerTests extends TestBase {
     FirstOpenPage firstOpenPage = new FirstOpenPage();
-    @BeforeEach
-    void setUp() {
-        TestConfig.applyConfiguration();
-    }
-    @BeforeEach
-    void setupAllure() {
-        SelenideLogger.addListener("allure", new AllureSelenide());
-    }
     @Test
     @DisplayName("Видимость приветственного баннера")
-    public void VisibleOpeningBannerTest(){
+    public void visibleOpeningBannerTest(){
         step("Открываем главную страницу", () -> {
             firstOpenPage
                     .openPege();
@@ -40,7 +28,7 @@ public class OpeningBannerTests {
     }
     @Test
     @DisplayName("Закрытие приветственного баннера")
-    public void CloseOpeningBannerTest(){
+    public void closeOpeningBannerTest(){
         step("Открываем главную страницу", () -> {
             firstOpenPage
                     .openPege()
@@ -58,7 +46,7 @@ public class OpeningBannerTests {
     }
     @Test
     @DisplayName("Видимость и подписи второго приветственного баннера")
-    public void ClickNexOpeningBannerTest(){
+    public void clickNexOpeningBannerTest(){
         step("Открываем главную страницу", () -> {
             firstOpenPage
                     .openPege()
@@ -77,7 +65,7 @@ public class OpeningBannerTests {
     }
     @Test
     @DisplayName("Видимость элементов страницы \"Куда доставить\"")
-    public void ClickSecondOpeningBannerTest(){
+    public void clickSecondOpeningBannerTest(){
         step("Открываем главную страницу", () -> {
             firstOpenPage
                     .openPege()
@@ -96,7 +84,7 @@ public class OpeningBannerTests {
     }
     @Test
     @DisplayName("Проверка поиска")
-    public void ClickAddressInputTest(){
+    public void clickAddressInputTest(){
         step("Открываем страницу ввода адреса", () -> {
             firstOpenPage
                     .openPege()
@@ -133,26 +121,5 @@ public class OpeningBannerTests {
             firstOpenPage
                     .typeConfirmButtonDisabled();
         });
-    }
-    @AfterEach
-    void reportsFactureAndTearDown() {
-        // 1. Сначала делаем скриншот и page source (пока драйвер жив)
-        Attachments.screenshotAs("Скриншот");
-        Attachments.pageSource();
-        Attachments.browserConsoleLogs();
-
-        // 2. Даем время Selenoid закончить запись видео (ВАЖНО!)
-        try {
-            Thread.sleep(3000); // 3 секунды на сохранение видео
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        // 3. Только после задержки скачиваем видео
-        Attachments.addVideo();
-
-        // 4. Закрываем драйвер
-        Selenide.closeWebDriver();
-        SelenideLogger.removeListener("allure");
     }
 }
