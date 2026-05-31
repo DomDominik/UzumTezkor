@@ -20,7 +20,6 @@ public class OpeningBannerTests {
     void setupAllure() {
         SelenideLogger.addListener("allure", new AllureSelenide());
     }
-    @Tag("Smoke")
     @Test
     @DisplayName("Видимость приветственного баннера")
     public void VisibleOpeningBannerTest(){
@@ -114,7 +113,6 @@ public class OpeningBannerTests {
                     .typeSearchResultsDisplayed();
         });
     }
-    @Tag("Smoke")
     @Test
     @DisplayName("Проверка видимости элементов контейнера \"Куда доставить?\"")
     public void clickSelectOnMapTest(){
